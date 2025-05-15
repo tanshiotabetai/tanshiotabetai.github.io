@@ -35,3 +35,86 @@ new Vue({
 })
 
 
+<template>
+  <div>
+    <h1>GitHub Pages Sample.</h1>
+    <router-view></router-view>
+  </div>
+</template>
+
+<script>
+export default {}
+</script>
+
+
+
+
+<template>
+  <div>
+    <p>This is Home Page.</p>
+    <router-link to="/about">Go to About page.</router-link>
+  </div>
+</template>
+
+<script>
+export default {}
+</script>
+
+
+
+<template>
+  <div>
+    <p>This is About Page.</p>
+    <router-link to="/">Go to Home page.</router-link>
+  </div>
+</template>
+
+<script>
+export default {}
+</script>
+
+
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+
+import Home from '../pages/Home.vue'
+import About from '../pages/About.vue'
+
+Vue.use(VueRouter)
+
+const router = new VueRouter({
+  routes: [
+    {
+      name: 'home',
+      path: '/',
+      component: Home
+    },
+    {
+      name: 'about',
+      path: '/about',
+      component: About
+    },
+  ]
+})
+
+export default router
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>GitHub Pages Sample</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script src="./bundle.js"></script>
+</body>
+</html>
+
+
+
+$ yarn build
+
