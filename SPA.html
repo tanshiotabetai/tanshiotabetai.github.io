@@ -1,120 +1,19 @@
-const path = require('path')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
-
-module.exports = [
-  {
-    mode: 'development',
-    entry: './src/index.js',
-    output: {
-      filename: 'bundle.js',
-      path: path.join(__dirname, './dist/'),
-    },
-    module: {
-      rules: [
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
-        }
-      ]
-    },
-    plugins: [
-      new VueLoaderPlugin(),
-    ],
-  },
-];
-
-
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router/index.js'
-
-new Vue({
-  el: '#app',
-  router,
-  render: h => h(App)
-})
-
-
-<template>
-  <div>
-    <h1>GitHub Pages Sample.</h1>
-    <router-view></router-view>
-  </div>
-</template>
-
-<script>
-export default {}
-</script>
-
-
-
-
-<template>
-  <div>
-    <p>This is Home Page.</p>
-    <router-link to="/about">Go to About page.</router-link>
-  </div>
-</template>
-
-<script>
-export default {}
-</script>
-
-
-
-<template>
-  <div>
-    <p>This is About Page.</p>
-    <router-link to="/">Go to Home page.</router-link>
-  </div>
-</template>
-
-<script>
-export default {}
-</script>
-
-
-
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-
-import Home from '../pages/Home.vue'
-import About from '../pages/About.vue'
-
-Vue.use(VueRouter)
-
-const router = new VueRouter({
-  routes: [
-    {
-      name: 'home',
-      path: '/',
-      component: Home
-    },
-    {
-      name: 'about',
-      path: '/about',
-      component: About
-    },
-  ]
-})
-
-export default router
-
-
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="utf-8">
-  <title>GitHub Pages Sample</title>
+  <meta charset="UTF-8">
+  <title>Sample page</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app"></div>
-  <script src="./bundle.js"></script>
+  <div class="main">
+    <h1>Sample page</h1>
+      <div class="title">
+        You are opening a CodeSandbox preview, do you want to continue?
+      </div>
+    <a class="btn-answer" id="btn-answer-yes" href="aaa">Yes, proceed to preview</a>
+    <a class="btn-answer btn-answer-no" href="/https://dashboard.kuzen.io/services/109244">No, I don't trust this url</a>
+  </div>
 </body>
 </html>
-
-
-
-$ yarn build
 
