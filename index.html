@@ -1,5 +1,20 @@
 <!doctype html>
 <html lang="ja">
+  <script type="text/javascript">
+  var __const = window.__const || [];
+  __const['host'] = "https://cbgw.kuzen.io";
+  __const['access_token'] = "b006b4a3da9df2a3f9ec34ff2f75a2ea";
+  __const['secret_token'] = "9b1bedadab98abb48338cd6b47c172c8";
+  var app = (function(doc, scr){
+    var created_element = doc.createElement(scr),
+        sub_ele = doc.getElementsByTagName(scr)[0];
+    created_element.type = 'text/javascript'
+    created_element.async = true;
+    created_element.setAttribute('charset','utf-8');
+    created_element.src = __const['host'] + '/chat_app_logic.js';
+    sub_ele.parentNode.insertBefore(created_element, sub_ele);
+  })(document, 'script');
+</script>
 <head>
   <meta charset="UTF-8">
   <title>Sample page</title>
