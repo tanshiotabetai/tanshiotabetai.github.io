@@ -22,11 +22,25 @@
         })(document, 'script');
     </script>
 
+<script>
+window.kuzenTagAsyncInit = function() {
+    window.kuzen_tag.add_query_parameter_url([]);
+    window.kuzen_tag.set_custom_value('user_message', '');
+};
+(function() {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://tag-v2.kuzen.io?tracking_code=KT_kn4AGrKMn5ZPfA%3D%3D248&line=1';
+    script.async = true;
+    document.head.appendChild(script);
+})();
+</script>
+   
+    
     <script>
         window.kuzenTagAsyncInit = function() {
-            window.kuzen_tag.add_query_parameter_url([
-                'https://liff.line.me/2006408530-Waov0bXV?sl=aca118d12a'
-            ]);
+            window.kuzen_tag.add_query_parameter_url(['https://liff.line.me/2006408530-Waov0bXV?sl=aca118d12a']);
+            window.kuzen_tag.set_custom_value('test_string', '1');
             window.kuzen_tag.set_custom_value('user_message', 'user_message1111');
         };
 
