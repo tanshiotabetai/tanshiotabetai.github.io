@@ -1,3 +1,27 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<title>Chat bot</title>
+<link rel="stylesheet" href="style.css">
+
+<script type="text/javascript">
+var __const = window.__const || [];
+__const['host'] = "https://cbgw.kuzen.io";
+__const['access_token'] = "b006b4a3da9df2a3f9ec34ff2f75a2ea";
+__const['secret_token'] = "9b1bedadab98abb48338cd6b47c172c8";
+(function(doc, scr) {
+var created_element = doc.createElement(scr),
+sub_ele = doc.getElementsByTagName(scr)[0];
+created_element.type = 'text/javascript'
+created_element.async = true;
+created_element.setAttribute('charset', 'utf-8');
+created_element.src = __const['host'] + '/chat_app_logic.js';
+sub_ele.parentNode.insertBefore(created_element, sub_ele);
+})(document, 'script');
+</script>
+
 <script>
 const initCustomSendEntity = () => {
 function handleEvent(e) {
@@ -13,7 +37,7 @@ document.body.addEventListener("click", handleEvent)
 
 window.kuzenTagAsyncInit = function() {
 window.kuzen_tag.add_query_parameter_url(["https://liff.line.me/2006408530-Waov0bXV?sl=aca118d12a"])
-
+window.kuzen_tag.set_custom_value("user_message", "usermessage1008")
 initCustomSendEntity()
 }
 
@@ -25,3 +49,22 @@ script.async = true;
 document.head.appendChild(script);
 })();
 </script>
+</head>
+
+<body>
+<div class="main">
+<h1>For Production</h1>
+<p>
+LINE Service: <a href="https://dashboard.kuzen.io/services/109042/" target="_blank" rel="noopener noreferrer">https://dashboard.kuzen.io/services/109042</a><br>
+Web Service: <a href="https://dashboard.kuzen.io/services/109244/" target="_blank" rel="noopener noreferrer">https://dashboard.kuzen.io/services/109244</a><br>
+Kuzen Tag: test_other<br>
+Exit intent popup: 272
+</p>
+
+<a href="https://liff.line.me/2006408530-Waov0bXV?sl=aca118d12a" target="_blank" rel="noopener noreferrer">
+<img src="https://media-lib-prdv3-500042659124.s3.ap-northeast-1.amazonaws.com/store/media/72146/file/9fce50fb8f4a370e399a5eefc758dcaa.jpg" alt="LIFF URL" width="100" height="150" id="liff_banner">
+</a>
+</div>
+</body>
+
+</html>
