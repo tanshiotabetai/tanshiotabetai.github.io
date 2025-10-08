@@ -21,7 +21,8 @@ created_element.src = __const['host'] + '/chat_app_logic.js';
 sub_ele.parentNode.insertBefore(created_element, sub_ele);
 })(document, 'script');
 </script>
-
+  
+<script>
 const initCustomSendEntity = () => {
 function handleEvent(e) {
 const target = e.target
@@ -32,11 +33,8 @@ window.kuzen_tag.send("visit")
 }
 document.body.addEventListener("click", handleEvent)
 }
-
 initCustomSendEntity()
 }
-
-
 window.kuzenTagAsyncInit = function() {
 window.kuzen_tag.add_query_parameter_url(["https://liff.line.me/2006408530-Waov0bXV?sl=aca118d12a"]);
 window.kuzen_tag.set_custom_value('click', 'click1008');
