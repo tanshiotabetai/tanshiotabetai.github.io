@@ -27,8 +27,8 @@ sub_ele.parentNode.insertBefore(created_element, sub_ele);
 const initCustomSendEntity = () => {
 function handleEvent(e) {
 const target = e.target
-const liffBanner = document.querySelector("#liff_banner")
-if (target?.id === "liff_banner" || liffBanner?.contains(target)) {
+const liffBanner = document.querySelector("#idtest")
+if (target?.id === "idtest" || liffBanner?.contains(target)) {
 window.kuzen_tag.set_custom_value("click", "idtest")
 window.kuzen_tag.send("visit")
 }
