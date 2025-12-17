@@ -1,34 +1,66 @@
+<script type="text/javascript">
+  var __const = window.__const || [];
+  __const['host'] = "https://cbgw.kuzen.io";
+  __const['access_token'] = "b006b4a3da9df2a3f9ec34ff2f75a2ea";
+  __const['secret_token'] = "9b1bedadab98abb48338cd6b47c172c8";
+  var app = (function(doc, scr){
+    var created_element = doc.createElement(scr),
+        sub_ele = doc.getElementsByTagName(scr)[0];
+    created_element.type = 'text/javascript'
+    created_element.async = true;
+    created_element.setAttribute('charset','utf-8');
+    created_element.src = __const['host'] + '/chat_app_logic.js';
+    sub_ele.parentNode.insertBefore(created_element, sub_ele);
+  })(document, 'script');
+</script>
 <style>
-  /* 固定表示ボタンのスタイル定義 */
-  .kuzen-fixed-btn {
-    position: fixed;  /* 画面上の決まった位置に固定する設定 */
-    bottom: 20px;     /* 下から20pxの位置 */
-    right: 20px;      /* 右から20pxの位置 */
-    z-index: 2147483647; /* 他の要素より手前に表示（KUZEN標準と同じ値） */
+  /* サブボタンのスタイル（標準アイコンの真上に配置） */
+  .kuzen-sub-btn {
+    position: fixed;
+    bottom: 90px;     /* 標準アイコン(約60px)のさらに上に表示 */
+    right: 25px;      /* 右端の位置合わせ */
+    z-index: 2147483647; /* 最前面に表示 */
 
-    /* 以下、ボタンの見た目（丸いアイコン風） */
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;      /* 幅 */
-    height: 60px;     /* 高さ */
-    background-color: #007bff; /* ボタンの色（青） */
-    color: #ffffff;   /* 文字・アイコンの色 */
-    border-radius: 50%; /* 完全な丸にする */
+    width: 40px;      /* 小さめのサイズ */
+    height: 40px;
+    background-color: #6c757d; /* グレー（メインより目立たせない） */
+    color: #ffffff;
+    border-radius: 50%;
     text-decoration: none;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* 影をつけて浮いているように見せる */
-    transition: transform 0.3s, background-color 0.3s;
-    font-size: 30px; /* 中の絵文字やアイコンのサイズ */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    font-size: 18px;
+    transition: all 0.3s;
   }
 
-  /* マウスを乗せた時の動き */
-  .kuzen-fixed-btn:hover {
-    background-color: #0056b3; /* 濃い青に変化 */
-    cursor: pointer;
-    transform: scale(1.1); /* 少し拡大 */
+  /* ホバー時に説明が出るようにする（ツールチップ風） */
+  .kuzen-sub-btn::after {
+    content: "別タブで開く";
+    position: absolute;
+    right: 50px; /* ボタンの左側に文字を出す */
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  
+  .kuzen-sub-btn:hover::after {
+    opacity: 1;
+  }
+
+  .kuzen-sub-btn:hover {
+    background-color: #5a6268;
+    transform: scale(1.1);
   }
 </style>
 
-<a href="https://cbgw.kuzen.io/plugins/b006b4a3da9df2a3f9ec34ff2f75a2ea/9b1bedadab98abb48338cd6b47c172c8" target="_blank" rel="noopener noreferrer" class="kuzen-fixed-btn" title="チャットボットを起動">
-  💬
+<a href="【ここにKUZENのページ型URL】" target="_blank" rel="noopener noreferrer" class="kuzen-sub-btn">
+  ⇱
 </a>
