@@ -1,25 +1,34 @@
 <style>
-  /* ボタンのスタイル定義 */
-  .kuzen-start-btn {
-    display: inline-block;
+  /* 固定表示ボタンのスタイル定義 */
+  .kuzen-fixed-btn {
+    position: fixed;  /* 画面上の決まった位置に固定する設定 */
+    bottom: 20px;     /* 下から20pxの位置 */
+    right: 20px;      /* 右から20pxの位置 */
+    z-index: 2147483647; /* 他の要素より手前に表示（KUZEN標準と同じ値） */
+
+    /* 以下、ボタンの見た目（丸いアイコン風） */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;      /* 幅 */
+    height: 60px;     /* 高さ */
     background-color: #007bff; /* ボタンの色（青） */
-    color: #ffffff; /* 文字の色（白） */
-    padding: 12px 24px; /* ボタンの大きさ（縦 横） */
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: none; /* 下線を消す */
-    border-radius: 30px; /* 角を丸くする */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* 少し影をつける */
-    transition: background-color 0.3s; /* ホバー時の色の変化を滑らかに */
+    color: #ffffff;   /* 文字・アイコンの色 */
+    border-radius: 50%; /* 完全な丸にする */
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3); /* 影をつけて浮いているように見せる */
+    transition: transform 0.3s, background-color 0.3s;
+    font-size: 30px; /* 中の絵文字やアイコンのサイズ */
   }
 
-  /* マウスを乗せた時のスタイル */
-  .kuzen-start-btn:hover {
-    background-color: #0056b3; /* ホバー時の色（少し濃い青） */
+  /* マウスを乗せた時の動き */
+  .kuzen-fixed-btn:hover {
+    background-color: #0056b3; /* 濃い青に変化 */
     cursor: pointer;
+    transform: scale(1.1); /* 少し拡大 */
   }
 </style>
 
-<a href="https://cbgw.kuzen.io/plugins/b006b4a3da9df2a3f9ec34ff2f75a2ea/9b1bedadab98abb48338cd6b47c172c8" target="_blank" rel="noopener noreferrer" class="kuzen-start-btn">
-  💬 チャットで質問する
+<a href="https://cbgw.kuzen.io/plugins/b006b4a3da9df2a3f9ec34ff2f75a2ea/9b1bedadab98abb48338cd6b47c172c8" target="_blank" rel="noopener noreferrer" class="kuzen-fixed-btn" title="チャットボットを起動">
+  💬
 </a>
