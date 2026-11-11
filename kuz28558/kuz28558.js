@@ -22,6 +22,20 @@ var KUZ28558_CONFIG = {
 };
 // ==============================================================
 
+// ---- github.io 対策 ----
+// タグは cookie を domain=<末尾2ラベル> で保存する（このサイトでは domain=github.io）。
+// github.io は Public Suffix のためブラウザが cookie を拒否し、ページ間で LINE ID が引き継がれない。
+// 実際のお客様ドメイン（例: xxx.co.jp）と同じ挙動にするため、domain 属性を外して host-only cookie として保存させる。
+(function () {
+  var desc = Object.getOwnPropertyDescriptor(Document.prototype, 'cookie');
+  if (!desc || !/\.github\.io$/.test(location.hostname)) return;
+  Object.defineProperty(document, 'cookie', {
+    configurable: true,
+    get: function () { return desc.get.call(document); },
+    set: function (v) { desc.set.call(document, String(v).replace(/;\s*domain=[^;]*/i, '')); }
+  });
+})();
+
 (function () {
   var params = new URLSearchParams(location.search);
   var env = params.get('env') === 'stg' ? 'stg' : 'prod';
