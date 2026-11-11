@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUZ-28558 登録完了</title>
+<link rel="stylesheet" href="style.css">
+<script src="kuz28558.js"></script>
+<script>KUZ28558.loadTag(KUZ28558.cfg.doneTag);</script>
+</head>
+<body data-page="complete">
+<div class="main">
+  <h1>登録完了ページ（テスト） <span id="env" class="badge"></span></h1>
+  <p>「登録F完了ページ」相当のタグを読み込んでいるページです。下のパネルで <b>cookie の lineId</b>・<b>localStorage の lineId</b>・<b>/api/v1/actions の送信有無</b> を確認してください。</p>
+  <div class="box">
+    <p>ご登録ありがとうございました（ダミー）。</p>
+    <a id="toForm" class="btn">登録フォームへ（line_id なし）</a>
+    <a id="toIndex" class="btn">手順ページへ戻る</a>
+    <a class="btn" href="javascript:location.reload()">再読み込み（もう一度完了ページを開く）</a>
+  </div>
+  <div id="kuz-panel"></div>
+</div>
+<script>
+  var b = document.getElementById('env'); b.textContent = KUZ28558.env; b.classList.add(KUZ28558.env);
+  document.getElementById('toForm').href = KUZ28558.link('form.html');
+  document.getElementById('toIndex').href = KUZ28558.link('index.html');
+</script>
+</body>
+</html>

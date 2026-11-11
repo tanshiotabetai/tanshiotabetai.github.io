@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUZ-28558 登録フォーム</title>
+<link rel="stylesheet" href="style.css">
+<script src="kuz28558.js"></script>
+<script>KUZ28558.loadTag(KUZ28558.cfg.formTag);</script>
+</head>
+<body data-page="form">
+<div class="main">
+  <h1>登録フォーム（テスト） <span id="env" class="badge"></span></h1>
+  <p>「登録F遷移」相当のタグを読み込んでいるページです。URL に <code>?line_id=&lt;テスト用LINEユーザーID&gt;</code> を付けて開いてください。</p>
+  <div class="box">
+    <label>氏名（ダミー・送信されません）<br><input type="text" placeholder="テスト 太郎"></label>
+    <p>
+      <a id="toDone" class="btn primary">送信する → 完了ページへ</a>
+      <a id="toIndex" class="btn">手順ページへ戻る</a>
+    </p>
+  </div>
+  <div id="kuz-panel"></div>
+</div>
+<script>
+  var b = document.getElementById('env'); b.textContent = KUZ28558.env; b.classList.add(KUZ28558.env);
+  // 完了ページへは line_id を付けずに遷移（実サイトと同じ）
+  document.getElementById('toDone').href = KUZ28558.link('complete.html');
+  document.getElementById('toIndex').href = KUZ28558.link('index.html');
+</script>
+</body>
+</html>

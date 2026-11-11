@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KUZ-28558 F2 再現テスト</title>
+<link rel="stylesheet" href="style.css">
+<script src="kuz28558.js"></script>
+</head>
+<body data-page="index">
+<div class="main">
+  <h1>KUZ-28558 F2 再現テスト <span id="env" class="badge"></span></h1>
+  <p>スタッフサービス様「登録F完了ページ」の遷移日時が未記録の件。<br>
+  <b>F2</b> = 完了ページを LINE 紐付け無しで一度開くと、そのタグの localStorage に <code>lineId: ""</code> が保存され、以後 LINE 経由で来ても cookie の LINE ID が空文字で上書きされて完了ページのタグが送信されなくなる事象。</p>
+
+  <div class="box">
+    <b>環境：</b>本番（修正 PR #49 デプロイ済み）
+    <table style="margin-top:8px">
+      <tr><th>フォーム用タグ</th><td><code id="cfgForm"></code></td></tr>
+      <tr><th>完了ページ用タグ</th><td><code id="cfgDone"></code></td></tr>
+      <tr><th>サービス</th><td><a id="cfgDash" target="_blank" rel="noopener"></a></td></tr>
+    </table>
+  </div>
+
+  <div class="box">
+    <label><b>テスト用 LINE ユーザー ID</b>（サービスの友だち。<code>U</code> から始まる 33 文字）<br>
+      <input id="lineId" type="text" size="40" placeholder="Uxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"></label>
+    <p><small>ケース A と B は<b>別のユーザー</b>で行ってください（A = テストユーザー1、B = テストユーザー2）。ダッシュボードの値で結果を判別できます。</small></p>
+  </div>
+
+  <h2>事前準備</h2>
+  <ol>
+    <li>テスト対象サービス・タグは上の表の通り（作成済み）。テスト前にダッシュボードで、テストユーザー1・2 の「登録F」「登録F完了ページ」のエンティティ値（回数・日時）を控えておく。</li>
+    <li>Chrome の<b>シークレットウィンドウ</b>で開く（ケースごとに新しいシークレットウィンドウにするのが確実）。または下の「リセット」を押す。</li>
+    <li>DevTools（F12）を開き、<b>Console</b> と <b>Network</b> タブ（フィルタ：<code>api/v1</code>）を表示しておく。ページ下部の Debug panel でも同じ情報を確認できます。</li>
+  </ol>
+  <p><a class="btn danger" href="javascript:KUZ28558.reset()">リセット（kuzen 系 cookie / localStorage を削除）</a></p>
+
+  <h2>ケース A（対照：正常系）</h2>
+  <ol>
+    <li>リセットする。</li>
+    <li><a class="btn primary" data-go="form-line">① 登録フォームを ?line_id= 付きで開く</a></li>
+    <li>フォームの「送信する → 完了ページへ」を押す。</li>
+    <li>完了ページの Debug panel を確認。</li>
+  </ol>
+  <p><b>期待結果：</b>cookie に LINE ID あり／localStorage の lineId = LINE ID／<code>POST /api/v1/actions</code> 送信あり。ダッシュボードで「登録F」「登録F完了ページ」両方の回数・日時が記録される。</p>
+
+  <h2>ケース B（F2 再現）</h2>
+  <ol>
+    <li>リセットする（または新しいシークレットウィンドウ）。</li>
+    <li><a class="btn primary" data-go="complete">① 完了ページを LINE ID 無しで開く</a><br>
+      → Debug panel の localStorage lineId が <code>""</code>（空文字）になることを確認。</li>
+    <li>完了ページの「手順ページへ戻る」→ <a class="btn primary" data-go="form-line">② 登録フォームを ?line_id= 付きで開く</a><br>
+      → cookie に LINE ID が入ることを確認。</li>
+    <li>フォームの「送信する → 完了ページへ」を押す。</li>
+    <li>完了ページの Debug panel と Console の <code>lineId</code>、Network の <code>POST /api/v1/actions</code> を確認（5 秒ほど待つ）。</li>
+    <li>完了ページの「再読み込み」をもう一度押し、同じく確認。</li>
+  </ol>
+  <table>
+    <tr><th></th><th>修正前（F2 が起きる場合）</th><th>修正後の期待（今回）</th></tr>
+    <tr><th>cookie kuzen-tag-line-id</th><td>LINE ID あり</td><td>LINE ID あり</td></tr>
+    <tr><th>完了ページ localStorage lineId</th><td><code>""</code> のまま</td><td>LINE ID に更新</td></tr>
+    <tr><th>console の lineId</th><td>空</td><td>LINE ID</td></tr>
+    <tr><th>POST /api/v1/actions</th><td>❌ 送信されない（GET /api/v1/tag のみ）</td><td>✅ 送信される（再読み込み時も）</td></tr>
+    <tr><th>ダッシュボード</th><td>「登録F」のみ記録、「登録F完了ページ」は未記録</td><td>両方記録</td></tr>
+  </table>
+  <p><b>判定：</b>完了ページで lineId が LINE ID・actions 送信あり・ダッシュボードに両方記録 → <b>修正 OK</b>。<br>
+  lineId が空・actions 未送信なら <b>F2 が残っている（NG）</b>。</p>
+
+  <h2>結果の記入（Notion チケットへ）</h2>
+<pre>## Manual check result（テストページ再現）
+実施日 / 実施者:
+テストページ: https://tanshiotabetai.github.io/kuz28558/
+ブラウザ:
+| ケース | LINE ユーザー | 完了ページ lineId | POST /api/v1/actions | ダッシュボード（登録F / 完了ページ） |
+| A | ユーザー1 | | | |
+| B | ユーザー2 | | | |
+結論:</pre>
+
+  <div id="kuz-panel"></div>
+</div>
+<script>
+  var b = document.getElementById('env'); b.textContent = KUZ28558.env; b.classList.add(KUZ28558.env);
+  document.getElementById('cfgForm').textContent = KUZ28558.cfg.formTag;
+  document.getElementById('cfgDone').textContent = KUZ28558.cfg.doneTag;
+  var d = document.getElementById('cfgDash'); d.href = d.textContent = KUZ28558.cfg.dashboard;
+
+  var input = document.getElementById('lineId');
+  try { input.value = localStorage.getItem('kuz28558-test-line-id') || ''; } catch (e) {}
+  input.addEventListener('input', function () { try { localStorage.setItem('kuz28558-test-line-id', input.value.trim()); } catch (e) {} });
+
+  document.querySelectorAll('[data-go]').forEach(function (a) {
+    a.addEventListener('click', function (ev) {
+      ev.preventDefault();
+      var go = a.dataset.go;
+      if (go === 'complete') { location.href = KUZ28558.link('complete.html'); return; }
+      var id = input.value.trim();
+      if (!/^U[0-9a-f]{32}$/.test(id)) { alert('テスト用 LINE ユーザー ID を入力してください（U + 32桁の16進）'); input.focus(); return; }
+      location.href = KUZ28558.link('form.html', { line_id: id });
+    });
+  });
+</script>
+</body>
+</html>
